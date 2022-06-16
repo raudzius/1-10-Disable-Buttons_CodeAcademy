@@ -18,8 +18,13 @@ subtract2Btn.textContent = '-2';
 const resetBtn = document.createElement('button');
 resetBtn.textContent = 'reset';
 const divNumbers = document.getElementById('numbers');
+const input = document.createElement('input');
+input.setAttribute('type', 'number');
+input.setAttribute('min', 1);
+input.setAttribute('max', 10);
+input.setAttribute('value', 1);
 
-divNumbers.append(h3, addBtn, add2Btn, subtractBtn, subtract2Btn, resetBtn, h4, scoreBtn, ul);
+divNumbers.append(h3, input, addBtn, add2Btn, subtractBtn, subtract2Btn, resetBtn, h4, scoreBtn, ul);
 subtractBtn.setAttribute('disabled', true);
 subtract2Btn.setAttribute('disabled', true);
 let h3Num = +h3.textContent;
@@ -52,7 +57,13 @@ function disableEnable() {
   }
   scoreBtn.removeAttribute('disabled');
   h3.textContent = h3Num;
+  input.value = h3Num;
 }
+
+input.addEventListener('change', () => {
+  h3Num = input.value;
+  disableEnable();
+});
 
 addBtn.addEventListener('click', () => {
   h3Num++;
@@ -78,6 +89,7 @@ resetBtn.addEventListener('click', () => {
 scoreBtn.addEventListener('click', () => {
   const li = document.createElement('li');
   li.textContent = h3Num;
+  li.style.color = h3.style.color;
   ul.append(li);
   h3Num = 1;
   disableEnable();
